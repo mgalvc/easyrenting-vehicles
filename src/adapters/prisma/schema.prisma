@@ -14,4 +14,6 @@ model Vehicle {
   brand String
   model String
   picture String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
 }

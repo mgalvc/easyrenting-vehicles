@@ -42,7 +42,9 @@ export default class PrismaRepository implements IVehicleRepository {
       model: vehicle.model,
       picture: vehicle.picture,
       plate: vehicle.plate,
-      year: parseInt(vehicle.year)
+      year: parseInt(vehicle.year),
+      createdAt: vehicle.createdAt,
+      updatedAt: vehicle.updatedAt
     })
   }
 
@@ -62,7 +64,9 @@ export default class PrismaRepository implements IVehicleRepository {
       model: vehicle.model,
       picture: vehicle.picture,
       plate: vehicle.plate,
-      year: parseInt(vehicle.year)
+      year: parseInt(vehicle.year),
+      createdAt: vehicle.createdAt,
+      updatedAt: vehicle.updatedAt
     })
   }
 

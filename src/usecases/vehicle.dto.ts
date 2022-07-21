@@ -3,5 +3,5 @@ export type VehicleDTO = {
   year: number
   brand: string
   model: string
-  picture: string
+  pictureBuffer: Buffer
 }
