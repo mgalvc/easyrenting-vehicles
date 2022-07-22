@@ -12,6 +12,7 @@ import env from '../../config/env';
 import PrismaRepository from '../../adapters/repository/prisma.repository';
 import LocalStorage from '../../adapters/storage/localStorage';
 import multer from 'multer';
+import S3Storage from '../../adapters/storage/s3';
 
 const app = express()
 const fileMiddleware = multer({ storage: multer.memoryStorage() })
@@ -31,11 +32,12 @@ app.post(
   async (req: Request, res: Response) => {
     // const repo = new InMemory()
     const repo = new PrismaRepository()
-    const storage = new LocalStorage()
+    // const storage = new LocalStorage()
+    const storage = new S3Storage()
     const { body } = req
 
     try {
-      const ref = await register({
+      const vehicle = await register({
         brand: body.brand,
         model: body.model,
         pictureBuffer: req.file!.buffer,
@@ -43,7 +45,7 @@ app.post(
         year: body.year
       }, repo, storage)
       
-      res.send({ ref })
+      res.send(vehicle)
     } catch (error) {
       if (error instanceof DuplicatedPlate) {
         return res.status(409).json({ error: error.message })

@@ -5,7 +5,7 @@ import Vehicle from "../domain/vehicle";
 import DuplicatedPlate from "./exceptions/duplicatedPlate.exception";
 import { VehicleDTO } from "./vehicle.dto";
 
-export default async function register(data: VehicleDTO, repo: IVehicleRepository, storage: IStorage): Promise<string> {
+export default async function register(data: VehicleDTO, repo: IVehicleRepository, storage: IStorage): Promise<Vehicle> {
   const vehicle = new Vehicle({ 
     brand: data.brand, 
     model: data.model, 
@@ -22,5 +22,7 @@ export default async function register(data: VehicleDTO, repo: IVehicleRepositor
   vehicle.picture = await storage.addFile(data.pictureBuffer, randomUUID())
   
   const id = await repo.add(vehicle)
-  return id
+  vehicle.ref = id 
+
+  return vehicle
 }
